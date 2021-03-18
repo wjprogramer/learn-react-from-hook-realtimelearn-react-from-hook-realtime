@@ -28,7 +28,7 @@ function App() {
       </header>
 
       {/* DEMO */}
-      <Counter />
+      <Counter startingValue={5} />
       <NetworkSpeedConverter />
     </div>
   );

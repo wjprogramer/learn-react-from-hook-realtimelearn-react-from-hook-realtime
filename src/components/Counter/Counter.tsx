@@ -9,8 +9,14 @@ enum Action {
   decrement,
 }
 
-const Counter = () => {
-  const [count, setCount] = useState(5);
+interface CounterProps {
+  startingValue: number
+}
+
+const Counter = (props: CounterProps) => {
+  const { startingValue } = props;
+
+  const [count, setCount] = useState(startingValue);
 
   const handleClick = (type: Action): MouseEventHandler => {
     return () => setCount(type === Action.increment ? count + 1 : count - 1);

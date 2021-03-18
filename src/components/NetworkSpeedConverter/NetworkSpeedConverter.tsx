@@ -16,7 +16,7 @@ const UnitControl = () => {
 }
 
 interface CardFooterProps {
-  inputValue: Number,
+  inputValue: number,
 }
 
 const CardFooter = (props: CardFooterProps) => {
