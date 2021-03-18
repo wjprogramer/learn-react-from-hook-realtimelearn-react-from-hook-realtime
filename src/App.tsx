@@ -7,6 +7,7 @@ import "./styles/plugins/index.module.scss";
 import {
   Counter,
   NetworkSpeedConverter,
+  WeatherApp,
 } from "./components";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
       {/* DEMO */}
       <Counter startingValue={5} />
       <NetworkSpeedConverter />
+      <WeatherApp />
     </div>
   );
 }
