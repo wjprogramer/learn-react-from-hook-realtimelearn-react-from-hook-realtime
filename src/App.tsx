@@ -20,11 +20,10 @@ function App() {
         >
           Learn React
         </a>
-
-        {/* DEMO */}
-        <Counter />
-
       </header>
+
+      {/* DEMO */}
+      <Counter />
     </div>
   );
 }
