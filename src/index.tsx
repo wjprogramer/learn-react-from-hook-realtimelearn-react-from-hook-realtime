@@ -5,6 +5,17 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from "@fortawesome/free-regular-svg-icons";
+
+library.add(fas);
+library.add(far);
+
+// Replace any existing <i> tags with <svg> and set up a MutationObserver to
+// continue doing this as the DOM changes.
+dom.watch()
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

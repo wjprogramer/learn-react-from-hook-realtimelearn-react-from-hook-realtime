@@ -2,7 +2,12 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Counter from "./components/Counter";
+import "./styles/plugins/index.module.scss";
+
+import {
+  Counter,
+  NetworkSpeedConverter,
+} from "./components";
 
 function App() {
   return (
@@ -24,6 +29,7 @@ function App() {
 
       {/* DEMO */}
       <Counter />
+      <NetworkSpeedConverter />
     </div>
   );
 }
