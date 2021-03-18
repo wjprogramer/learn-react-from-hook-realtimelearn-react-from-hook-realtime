@@ -1,15 +1,71 @@
 import React, {
-  useState, MouseEventHandler 
+  useState, MouseEventHandler, MouseEvent, 
 } from "react";
 
 import styles from './style.module.scss';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faCircle, } from '@fortawesome/free-solid-svg-icons'
+const UnitControl = () => {
+  return <div className={styles["unit-control"]}>
+    <div className={styles["unit"]}>Mbps</div>
+    <span className={`${styles["exchange-icon"]} fa-fw fa-stack`}>
+      <i className={`far fa-circle fa-stack-2x`} ></i>
+      <i className={`fas fa-exchange-alt fa-stack-1x`}></i>
+    </span>
+    <div className={styles["unit"]}>Mb/s</div>
+  </div>;
+}
+
+interface CardFooterProps {
+  inputValue: Number,
+}
+
+const CardFooter = (props: CardFooterProps) => {
+  let { inputValue } = props;
+  let criteria = {
+    title: "",
+    backgroundColor: "",
+  };
+
+  if (!inputValue) {
+    criteria = {
+      title: '---',
+      backgroundColor: '#d3d8e2',
+    };
+  } else if (inputValue < 15) {
+    criteria = {
+      title: 'SLOW',
+      backgroundColor: '#ee362d',
+    };
+  } else if (inputValue < 40) {
+    criteria = {
+      title: 'GOOD',
+      backgroundColor: '#1b82f1',
+    };
+  } else if (inputValue >= 40) {
+    criteria = {
+      title: 'FAST',
+      backgroundColor: '#13d569',
+    };
+  }
+
+  return <div 
+    className={styles["card-footer"]}
+    style={{
+      backgroundColor: criteria.backgroundColor
+    }}
+  >
+    {criteria.title}
+  </div>;
+}
 
 const NetworkSpeedConverter = () => {
+  const [inputValue, setInputValue] = useState(0);
 
-  console.log(faCircle);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    let number = parseInt(value);
+    setInputValue(isNaN(number) ? 0 : number);
+  };
 
   return <div className={styles.background}>
     <div className={styles.container}>
@@ -18,19 +74,17 @@ const NetworkSpeedConverter = () => {
       </div>
       <div className={styles["card-body"]}>
         <div className={styles["card-body"]}>
-          <div className={styles["unit-control"]}>
-          <div className={styles["unit"]}>Mbps</div>
-            <span className={`${styles["exchange-icon"]} fa-fw fa-stack`}>
-              <i className={`far fa-circle fa-stack-2x`} ></i>
-              <i className={`fas fa-exchange-alt fa-stack-1x`}></i>
-            </span>
-
-            <div className={styles["unit"]}>Mb/s</div>
-          </div>
+          <UnitControl />
           <div className={styles["converter"]}>
             <div className={styles["flex-1"]}>
               <div className={styles["converter-title"]}>Set</div>
-              <input type="number" className={styles["input-number"]} min="0" />
+              <input 
+                type="number"
+                onChange={handleInputChange}
+                value={inputValue}
+                className={styles["input-number"]}
+                min="0"
+              />
             </div>
 
             <span className={`${styles["angle-icon"]} fa-2x`} style={{ marginTop: "30px" }}>
@@ -39,14 +93,17 @@ const NetworkSpeedConverter = () => {
 
             <div className={`${styles["text-right"]} ${styles["flex-1"]}`}>
               <div className={styles["converter-title"]}>Show</div>
-              <input type="text" className={`${styles["input-number"]} ${styles["text-right"]}`} value="125" disabled />
+              <input 
+                type="text" 
+                className={`${styles["input-number"]} ${styles["text-right"]}`} 
+                value={inputValue / 8}
+                disabled 
+              />
             </div>
           </div>
         </div>
       </div>
-      <div className={styles["card-footer"]}>
-        Fast
-      </div>
+      <CardFooter inputValue={inputValue} />
     </div>
   </div>
 }
