@@ -106,7 +106,7 @@ const Rain = styled.div`
   }
 `;
 
-const Redo = styled.div`
+const Refresh = styled.div`
   position: absolute;
   right: 15px;
   bottom: 15px;
@@ -200,7 +200,7 @@ export {
   AirFlow,
   Rain,
   WeatherIcon,
-  Redo,
+  Refresh,
   License,
   Link,
   Table,
