@@ -71,6 +71,36 @@ const Counter = () => {
 
 ---
 
+## Day 20
+
+> 今天的內容重點簡單來說就是：「**如果某個函式不需要被覆用，那麼可以直接定義在 `useEffect` 中，但若該方法會需要被共用，則把該方法提到 `useEffect` 外面後，記得用 `useCallback` 進行處理後再放到 `useEffect` 的 dependencies 中**」。
+
+---
+
+之所以會有這個問題發生，是因為當我們把 `fetchData` 放到 `dependencies` 中，**因為 `fetchData` 是一個函式，而在 JavaScript 中[函式本質上就是物件的一種](https://pjchender.blogspot.com/2016/03/javascriptfunctionobjects.html)，物件在 JavaScript 中直接用 `===` 判斷並不是直接看屬性名稱和屬性值相不相同來決定的**。舉例來說，當我們定義了兩個物件，即使物件內的屬性名稱和屬性值都一樣，使用 `===` 來判斷也會得到 `false`：
+
+```js
+const a = {
+  title: '第十一屆鐵人賽',
+};
+const b = {
+  title: '第十一屆鐵人賽',
+};
+console.log(a === b);   // false
+```
+
+---
+
+**在 React Hooks 則提供了 `useCallback` 這樣的方法，在有需要時，它可以幫我們把這個函式保存下來，讓它不會隨著每次組件重新執行後，因為作用域不同而得到兩個不同的函式。**
+
+---
+
+`useCallback` 只有 dependencies 改變，才會產生新的函式
+`useEffect` 只有 dependencies 改變，才會執行 useEffect 內的函式
+ 
+
+
+
 
 
 

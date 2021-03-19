@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { ReactComponent as AirFlowIcon } from '../../assets/image/weather-app-images/airFlow.svg';
 import { ReactComponent as RainIcon } from '../../assets/image/weather-app-images/rain.svg';
@@ -94,21 +94,25 @@ const WeatherApp = () => {
     comfortability: '',
   });
 
-  const fetchData = async () => {
-    const [currentWeather, weatherForecast] = await Promise.all([
-      fetchCurrentWeather(),
-      fetchWeatherForecast(),
-    ]);
+  const fetchData = useCallback(() => {
+    const fetchingData = async () => {
+      const [currentWeather, weatherForecast] = await Promise.all([
+        fetchCurrentWeather(),
+        fetchWeatherForecast(),
+      ]);
 
-    setWeatherElement({
-      ...currentWeather,
-      ...weatherForecast,
-    });
-  };
+      setWeatherElement({
+        ...currentWeather,
+        ...weatherForecast,
+      });
+    };
+
+    fetchingData();
+  }, []);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [ fetchData ]);
 
   return (
     <Container>
