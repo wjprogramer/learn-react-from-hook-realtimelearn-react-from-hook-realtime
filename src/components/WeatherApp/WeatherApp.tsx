@@ -143,7 +143,10 @@ const WeatherApp = () => {
               <Temperature>
                 {Math.round(weatherElement.temperature)} <Celsius>°C</Celsius>
               </Temperature>
-              <WeatherIcon />
+              <WeatherIcon 
+                currentWeatherCode={weatherElement.weatherCode}
+                moment="night"
+              />
             </CurrentWeather>
             <AirFlow>
               <AirFlowIcon />
