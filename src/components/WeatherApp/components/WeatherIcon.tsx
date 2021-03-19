@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import styled from '@emotion/styled';
 
@@ -72,6 +72,15 @@ const IconContainer = styled.div`
   }
 `;
 
+const weatherCode2Type = (weatherCode?: number) => {
+  const [weatherType] =
+    Object.entries(weatherTypes).find(([weatherType, weatherCodes]) =>
+      weatherCodes.includes(Number(weatherCode))
+    ) || [];
+
+  return weatherType;
+};
+
 interface WeatherIconProps {
   moment: string,
   currentWeatherCode?: number,
@@ -82,19 +91,13 @@ const WeatherIcon = (props: WeatherIconProps) => {
 
   const [currentWeatherIcon, setCurrentWeatherIcon] = useState('isClear');
 
+  const theWeatherIcon = useMemo(() => weatherCode2Type(currentWeatherCode), [
+    currentWeatherCode,
+  ]);
+
   useEffect(() => {
-   const weatherCode2Type = (weatherCode?: number) => {
-      const [weatherType] =
-        Object.entries(weatherTypes).find(([weatherType, weatherCodes]) =>
-          weatherCodes.includes(Number(weatherCode))
-        ) || [];
-
-      return weatherType;
-    };
-    const currentWeatherIcon = weatherCode2Type(currentWeatherCode);
-
-    if (currentWeatherIcon !== undefined) {
-      setCurrentWeatherIcon(currentWeatherIcon);
+    if (theWeatherIcon !== undefined) {
+      setCurrentWeatherIcon(theWeatherIcon);
     }
   }, [currentWeatherCode]);
 

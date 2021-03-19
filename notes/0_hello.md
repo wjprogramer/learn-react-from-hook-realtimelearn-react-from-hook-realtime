@@ -98,12 +98,25 @@ console.log(a === b);   // false
 `useCallback` 只有 dependencies 改變，才會產生新的函式
 `useEffect` 只有 dependencies 改變，才會執行 useEffect 內的函式
  
+## Day 21
 
+保存複雜運算的資料結果 - useMemo 使用
 
+`useCallback` 是用來在 dependencies 沒有改變的情況下，把某個 function 保存下來；`useMemo` 則是會在 dependencies 沒有改變的情況下，把某個運算的結果保存下來，它的用法如下：
 
+```jsx
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+```
 
+只要 dependencies 的值沒有改變，`useMemo` 就會直接使用上一次計算過的結果而不會重新在運算一次。
 
+---
 
+**關於 [`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) 的使用有一點需要留意的是， `useMemo` 會在組件渲染時（rendering）被呼叫，因此不應該在這個時間點進行任何會有副作用（side effect）的操作；若需要有副作用的操作，則應該使用的是 `useEffect` 而不是 `useMemo`。**
+
+> 補充：`useCallback(fn, deps)` 等同於 `useMemo(() => fn, deps)`。
+
+## Day 22
 
 
 
