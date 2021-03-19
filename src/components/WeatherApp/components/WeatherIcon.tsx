@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import styled from '@emotion/styled';
 
@@ -81,6 +81,22 @@ const WeatherIcon = (props: WeatherIconProps) => {
   const { moment, currentWeatherCode } = props;
 
   const [currentWeatherIcon, setCurrentWeatherIcon] = useState('isClear');
+
+  useEffect(() => {
+   const weatherCode2Type = (weatherCode?: number) => {
+      const [weatherType] =
+        Object.entries(weatherTypes).find(([weatherType, weatherCodes]) =>
+          weatherCodes.includes(Number(weatherCode))
+        ) || [];
+
+      return weatherType;
+    };
+    const currentWeatherIcon = weatherCode2Type(currentWeatherCode);
+
+    if (currentWeatherIcon !== undefined) {
+      setCurrentWeatherIcon(currentWeatherIcon);
+    }
+  }, [currentWeatherCode]);
 
   return (
     <IconContainer>
