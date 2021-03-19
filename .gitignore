@@ -12,6 +12,9 @@
 /build
 dist
 
+# config
+src/config/index.ts
+
 # misc
 .DS_Store
 .env.local
