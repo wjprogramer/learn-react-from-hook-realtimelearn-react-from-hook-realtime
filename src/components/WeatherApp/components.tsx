@@ -139,23 +139,25 @@ const LicenseContainer = styled.div`
 const License = () => {
   return <LicenseContainer>
     <Table>
-      <tr>
-        <th colSpan={2}>
-          ICON SOURCE
-        </th>
-      </tr>
-      <tr>
-        <td>Designer</td>
-        <td>
-          <Link href="https://www.iconfinder.com/laurareen">Laura Reen</Link>
-        </td>
-      </tr>
-      <tr>
-        <td>License</td>
-        <td>
-          <Link href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons <br/>(Attribution-Noncommercial 3.0 Unported)</Link>
-        </td>
-      </tr>
+      <tbody>
+        <tr>
+          <th colSpan={2}>
+            ICON SOURCE
+          </th>
+        </tr>
+        <tr>
+          <td>Designer</td>
+          <td>
+            <Link href="https://www.iconfinder.com/laurareen">Laura Reen</Link>
+          </td>
+        </tr>
+        <tr>
+          <td>License</td>
+          <td>
+            <Link href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons <br/>(Attribution-Noncommercial 3.0 Unported)</Link>
+          </td>
+        </tr>
+      </tbody>
     </Table>
   </LicenseContainer>
 }
