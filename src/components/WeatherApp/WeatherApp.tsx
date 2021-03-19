@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 
 import { ReactComponent as AirFlowIcon } from '../../assets/image/weather-app-images/airFlow.svg';
 import { ReactComponent as RainIcon } from '../../assets/image/weather-app-images/rain.svg';
@@ -25,6 +25,8 @@ import {
   Redo,
   License,
 } from "./components";
+
+import sunriseAndSunsetData from './data/sunrise-sunset.json';
 
 const fetchCurrentWeather = () => {
   return fetch(
@@ -80,6 +82,38 @@ const fetchWeatherForecast = () => {
     });
 };
 
+const getMoment = (locationName: any) => {
+  const location = sunriseAndSunsetData.find(
+    data => data.locationName === locationName,
+  );
+
+  if (!location) return null;
+
+  const now = new Date();
+  now.setFullYear(2020); // ignore year
+
+  const nowDate = Intl.DateTimeFormat('zh-TW', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+    .format(now)
+    .replace(/\//g, '-');
+
+  const locationDate: any = location.time && location.time.find(time => time.dataTime === nowDate);
+  const sunriseTimestamp = new Date(
+    `${locationDate.dataTime} ${locationDate.sunrise}`,
+  ).getTime();
+  const sunsetTimestamp = new Date(
+    `${locationDate.dataTime} ${locationDate.sunset}`,
+  ).getTime();
+  const nowTimeStamp = now.getTime();
+
+  return sunriseTimestamp <= nowTimeStamp && nowTimeStamp <= sunsetTimestamp
+    ? 'day'
+    : 'night';
+};
+
 const WeatherApp = () => {
 
   const [weatherElement, setWeatherElement] = useState({
@@ -109,6 +143,10 @@ const WeatherApp = () => {
 
     fetchingData();
   }, []);
+
+  const moment = useMemo(() => getMoment(weatherElement.locationName), [
+    weatherElement.locationName,
+  ]);
 
   useEffect(() => {
     fetchData();
@@ -145,7 +183,7 @@ const WeatherApp = () => {
               </Temperature>
               <WeatherIcon 
                 currentWeatherCode={weatherElement.weatherCode}
-                moment="night"
+                moment={moment || 'day'}
               />
             </CurrentWeather>
             <AirFlow>
