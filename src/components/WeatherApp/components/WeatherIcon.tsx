@@ -99,7 +99,7 @@ const WeatherIcon = (props: WeatherIconProps) => {
     if (theWeatherIcon !== undefined) {
       setCurrentWeatherIcon(theWeatherIcon);
     }
-  }, [currentWeatherCode]);
+  }, [theWeatherIcon]);
 
   return (
     <IconContainer>
