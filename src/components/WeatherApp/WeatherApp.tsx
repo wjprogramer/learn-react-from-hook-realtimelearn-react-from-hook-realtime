@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { ReactComponent as AirFlowIcon } from '../../assets/image/weather-app-images/airFlow.svg';
 import { ReactComponent as RainIcon } from '../../assets/image/weather-app-images/rain.svg';
 import { ReactComponent as RedoIcon } from '../../assets/image/weather-app-images/refresh.svg';
+import { ReactComponent as LoadingIcon } from '../../assets/image/weather-app-images/loading.svg';
 
 import catcherIcon from "../../assets/image/The Weather is Nice Today/SVG/64/2682810 - catcher direction flag weather wind windy.svg";
 
@@ -126,6 +127,7 @@ const WeatherApp = () => {
     weatherCode: 0,
     rainPossibility: 0,
     comfortability: '',
+    isLoading: true,
   });
 
   const fetchData = useCallback(() => {
@@ -138,8 +140,14 @@ const WeatherApp = () => {
       setWeatherElement({
         ...currentWeather,
         ...weatherForecast,
+        isLoading: false,
       });
     };
+
+    setWeatherElement(prevState => ({
+      ...prevState,
+      isLoading: true,
+    }));
 
     fetchingData();
   }, []);
@@ -194,13 +202,13 @@ const WeatherApp = () => {
               <RainIcon />
               {Math.round(weatherElement.rainPossibility)} %
             </Rain>
-            <Redo onClick={fetchData}>
+            <Redo onClick={fetchData} isLoading={weatherElement.isLoading}>
               最後觀測時間：
               {new Intl.DateTimeFormat('zh-TW', {
                 hour: 'numeric',
                 minute: 'numeric',
               }).format(new Date(weatherElement.observationTime))}{' '}
-              <RedoIcon />
+              {weatherElement.isLoading ? <LoadingIcon /> : <RedoIcon />}
             </Redo>
           </WeatherCard>
         </WeatherCardContainer>
