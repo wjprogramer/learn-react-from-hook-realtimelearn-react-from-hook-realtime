@@ -1,5 +1,5 @@
 import React, {
-  useState, MouseEventHandler, MouseEvent, 
+  useState,
 } from "react";
 
 import styles from './style.module.scss';

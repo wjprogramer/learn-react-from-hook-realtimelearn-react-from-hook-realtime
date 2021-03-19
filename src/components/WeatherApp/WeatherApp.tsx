@@ -160,6 +160,7 @@ const WeatherApp = () => {
           Weather
           <img 
             src={catcherIcon} 
+            alt="Just a decoration"
             style={{
               width: "50px",
               marginLeft: "20px",
