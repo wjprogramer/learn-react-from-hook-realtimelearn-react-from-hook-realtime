@@ -41,12 +41,23 @@ const WeatherApp = () => {
   });
 
   useEffect(() => {
-    fetchCurrentWeather();
-    fetchWeatherForecast();
+    const fetchData = async () => {
+      const [currentWeather, weatherForecast] = await Promise.all([
+        fetchCurrentWeather(),
+        fetchWeatherForecast(),
+      ]);
+
+      setWeatherElement({
+        ...currentWeather,
+        ...weatherForecast,
+      });
+    };
+
+    fetchData();
   }, []);
 
   const fetchCurrentWeather = () => {
-    fetch(
+    return fetch(
       `https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=${CWB_API_AUTH_CODE}&locationName=臺北`
     )
       .then((response) => response.json())
@@ -63,20 +74,19 @@ const WeatherApp = () => {
           {}
         );
 
-        setWeatherElement(prevState => ({
-          ...prevState,
+        return {
           observationTime: locationData.time.obsTime,
           locationName: locationData.locationName,
           temperature: weatherElements.TEMP,
           windSpeed: weatherElements.WDSD,
           humid: weatherElements.HUMD,
-        }));
+        };
       });
   };
 
   const fetchWeatherForecast = () => {
-    fetch(
-      'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=[驗證碼]&locationName=臺北市'
+    return fetch(
+      `https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=${CWB_API_AUTH_CODE}&locationName=臺北市`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -91,13 +101,12 @@ const WeatherApp = () => {
           {}
         );
   
-        setWeatherElement(prevState => ({
-          ...prevState,
+        return {
           description: weatherElements.Wx.parameterName,
           weatherCode: weatherElements.Wx.parameterValue,
           rainPossibility: weatherElements.PoP.parameterName,
           comfortability: weatherElements.CI.parameterName,
-        }));
+        };
       });
   };
 
