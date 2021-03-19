@@ -1,5 +1,12 @@
 import styled from '@emotion/styled';
 
+import { ReactComponent as CloudyIcon } from '../../assets/image/weather-app-images/day-cloudy.svg';
+import { ReactComponent as AirFlowIcon } from '../../assets/image/weather-app-images/airFlow.svg';
+import { ReactComponent as RainIcon } from '../../assets/image/weather-app-images/rain.svg';
+import { ReactComponent as RedoIcon } from '../../assets/image/weather-app-images/refresh.svg';
+
+import catcherIcon from "../../assets/image/The Weather is Nice Today/SVG/64/2682810 - catcher direction flag weather wind windy.svg";
+
 const Container = styled.div`
   background-color: #ededed;
   height: 100vh;
@@ -21,7 +28,18 @@ const Content = styled.div`
 `
 
 const Title = styled.h1`
+  ${props => {
+    console.log(props);
+    return props.toString();
+  }};
+  color: ${props => props.theme === 'dark' ? '#dadada' : '#212121'};
   font-size: 50px;
+`
+const WeatherCardContainer = styled.div`
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const WeatherCard = styled.div`
@@ -71,6 +89,12 @@ const AirFlow = styled.div`
   font-weight: 300;
   color: #828282;
   margin-bottom: 20px;
+
+  svg {
+    width: 25px;
+    height: auto;
+    margin-right: 30px;
+  }
 `;
 
 const Rain = styled.div`
@@ -79,6 +103,25 @@ const Rain = styled.div`
   font-size: 16x;
   font-weight: 300;
   color: #828282;
+
+  svg {
+    width: 25px;
+    height: auto;
+    margin-right: 30px;
+  }
+`;
+
+const Cloudy = styled(CloudyIcon)`
+  flex-basis: 30%;
+`;
+
+const Redo = styled(RedoIcon)`
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  cursor: pointer;
 `;
 
 const License = styled.div`
@@ -113,10 +156,20 @@ const WeatherApp = () => {
       <Content>
 
         {/* Title */}
-        <Title>Weather</Title>
+        <Title theme="light">
+          Weather
+          <img 
+            src={catcherIcon} 
+            style={{
+              width: "50px",
+              marginLeft: "20px",
+              transform: "translateY(5px)",
+            }}
+          />
+        </Title>
 
         {/* Main Info */}
-        <div style={{ flexGrow: 1 }}>
+        <WeatherCardContainer>
           <WeatherCard>
             <Location>台北市</Location>
             <Description>多雲時晴</Description>
@@ -124,11 +177,19 @@ const WeatherApp = () => {
               <Temperature>
                 23 <Celsius>°C</Celsius>
               </Temperature>
+              <Cloudy />
             </CurrentWeather>
-            <AirFlow>23 m/h</AirFlow>
-            <Rain>48%</Rain>
+            <AirFlow>
+              <AirFlowIcon />
+              23 m/h
+            </AirFlow>
+            <Rain>
+              <RainIcon />
+              48%
+            </Rain>
+            <Redo />
           </WeatherCard>
-        </div>
+        </WeatherCardContainer>
 
         {/* License */}
         <License>
