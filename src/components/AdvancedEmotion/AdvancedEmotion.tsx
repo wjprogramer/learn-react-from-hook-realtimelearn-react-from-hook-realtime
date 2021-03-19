@@ -20,10 +20,18 @@ const AcceptButton = styled.button`
   background-color: green;
 `
 
+// 套用 css 到某 component 上
+const ButtonContainer = styled(AcceptButton)`
+  width: 100px;
+  height: 100px;
+  background-color: black;
+`
+
 const AdvancedEmotion = () => {
   return <>
     <RejectButton />
     <AcceptButton />
+    <ButtonContainer />
   </>;
 }
 

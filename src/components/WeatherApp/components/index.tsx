@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { ReactComponent as CloudyIcon } from '../../assets/image/weather-app-images/day-cloudy.svg';
+import WeatherIcon from "./WeatherIcon";
 
 const Container = styled.div`
   background-color: #ededed;
@@ -106,10 +106,6 @@ const Rain = styled.div`
   }
 `;
 
-const Cloudy = styled(CloudyIcon)`
-  flex-basis: 30%;
-`;
-
 const Redo = styled.div`
   position: absolute;
   right: 15px;
@@ -192,7 +188,7 @@ export {
   Celsius,
   AirFlow,
   Rain,
-  Cloudy,
+  WeatherIcon,
   Redo,
   License,
   Link,

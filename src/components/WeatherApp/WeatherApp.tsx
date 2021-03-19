@@ -21,7 +21,7 @@ import {
   Celsius,
   AirFlow,
   Rain,
-  Cloudy,
+  WeatherIcon,
   Redo,
   License,
 } from "./components";
@@ -143,7 +143,7 @@ const WeatherApp = () => {
               <Temperature>
                 {Math.round(weatherElement.temperature)} <Celsius>°C</Celsius>
               </Temperature>
-              <Cloudy />
+              <WeatherIcon />
             </CurrentWeather>
             <AirFlow>
               <AirFlowIcon />
