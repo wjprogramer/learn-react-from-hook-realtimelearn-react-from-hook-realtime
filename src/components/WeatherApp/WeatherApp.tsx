@@ -1,10 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 
-import { ReactComponent as AirFlowIcon } from '../../assets/image/weather-app-images/airFlow.svg';
-import { ReactComponent as RainIcon } from '../../assets/image/weather-app-images/rain.svg';
-import { ReactComponent as RedoIcon } from '../../assets/image/weather-app-images/refresh.svg';
-import { ReactComponent as LoadingIcon } from '../../assets/image/weather-app-images/loading.svg';
-
 import catcherIcon from "../../assets/image/The Weather is Nice Today/SVG/64/2682810 - catcher direction flag weather wind windy.svg";
 
 import { CWB_API_AUTH_CODE } from "../../config";
@@ -15,15 +10,6 @@ import {
   Title,
   WeatherCardContainer,
   WeatherCard,
-  Location,
-  Description,
-  CurrentWeather,
-  Temperature,
-  Celsius,
-  AirFlow,
-  Rain,
-  WeatherIcon,
-  Refresh,
   License,
 } from "./components";
 import theme, { ThemeType } from "./theme";
@@ -134,17 +120,7 @@ const WeatherApp = () => {
   });
   const [currentTheme, setCurrentTheme] = useState(ThemeType.DARK);
 
-  const {
-    observationTime,
-    locationName,
-    temperature,
-    windSpeed,
-    description,
-    weatherCode,
-    rainPossibility,
-    comfortability,
-    isLoading,
-  } = weatherElement;
+  const { locationName } = weatherElement;
 
   const fetchData = useCallback(() => {
     const fetchingData = async () => {
@@ -168,9 +144,7 @@ const WeatherApp = () => {
     fetchingData();
   }, []);
 
-  const moment = useMemo(() => getMoment(locationName), [
-    locationName,
-  ]);
+  const moment = useMemo(() => getMoment(locationName), [ locationName ]);
   
   useEffect(() => {
     fetchData();
@@ -178,8 +152,7 @@ const WeatherApp = () => {
 
   useEffect(() => {
     setCurrentTheme(moment === 'day' 
-      ? ThemeType.LIGHT 
-      : ThemeType.DARK);
+      ? ThemeType.LIGHT : ThemeType.DARK);
   }, [moment]);
   
   return (
@@ -203,37 +176,11 @@ const WeatherApp = () => {
     
           {/* Main Info */}
           <WeatherCardContainer>
-            <WeatherCard>
-              <Location>{locationName}</Location>
-              <Description>
-                {description} {comfortability}
-              </Description>
-              <CurrentWeather>
-                <Temperature>
-                  {Math.round(temperature)} <Celsius>°C</Celsius>
-                </Temperature>
-                <WeatherIcon 
-                  currentWeatherCode={weatherCode}
-                  moment={moment || 'day'}
-                />
-              </CurrentWeather>
-              <AirFlow>
-                <AirFlowIcon />
-                {windSpeed} m/h
-              </AirFlow>
-              <Rain>
-                <RainIcon />
-                {Math.round(rainPossibility)} %
-              </Rain>
-              <Refresh onClick={fetchData} isLoading={isLoading}>
-                最後觀測時間：
-                {new Intl.DateTimeFormat('zh-TW', {
-                  hour: 'numeric',
-                  minute: 'numeric',
-                }).format(new Date(observationTime))}{' '}
-                {isLoading ? <LoadingIcon /> : <RedoIcon />}
-              </Refresh>
-            </WeatherCard>
+            <WeatherCard 
+              weatherElement={weatherElement}
+              moment={moment}
+              fetchData={fetchData}
+            />
           </WeatherCardContainer>
 
           {/* License */}
