@@ -26,7 +26,10 @@ import {
   Refresh,
   License,
 } from "./components";
+import theme, { ThemeType } from "./theme";
 
+import { ThemeProvider } from '@emotion/react'
+  
 import sunriseAndSunsetData from './data/sunrise-sunset.json';
 
 const fetchCurrentWeather = () => {
@@ -129,6 +132,7 @@ const WeatherApp = () => {
     comfortability: '',
     isLoading: true,
   });
+  const [currentTheme, setCurrentTheme] = useState(ThemeType.DARK);
 
   const {
     observationTime,
@@ -171,65 +175,73 @@ const WeatherApp = () => {
   useEffect(() => {
     fetchData();
   }, [ fetchData ]);
+
+  useEffect(() => {
+    setCurrentTheme(moment === 'day' 
+      ? ThemeType.LIGHT 
+      : ThemeType.DARK);
+  }, [moment]);
   
   return (
-    <Container>
-      <Content>
-  
-        {/* Title */}
-        <Title theme="light">
-          Weather
-          <img 
-            src={catcherIcon} 
-            alt="Just a decoration"
-            style={{
-              width: "50px",
-              marginLeft: "20px",
-              transform: "translateY(5px)",
-            }}
-          />
-        </Title>
-  
-        {/* Main Info */}
-        <WeatherCardContainer>
-          <WeatherCard>
-            <Location>{locationName}</Location>
-            <Description>
-              {description} {comfortability}
-            </Description>
-            <CurrentWeather>
-              <Temperature>
-                {Math.round(temperature)} <Celsius>°C</Celsius>
-              </Temperature>
-              <WeatherIcon 
-                currentWeatherCode={weatherCode}
-                moment={moment || 'day'}
-              />
-            </CurrentWeather>
-            <AirFlow>
-              <AirFlowIcon />
-              {windSpeed} m/h
-            </AirFlow>
-            <Rain>
-              <RainIcon />
-              {Math.round(rainPossibility)} %
-            </Rain>
-            <Refresh onClick={fetchData} isLoading={isLoading}>
-              最後觀測時間：
-              {new Intl.DateTimeFormat('zh-TW', {
-                hour: 'numeric',
-                minute: 'numeric',
-              }).format(new Date(observationTime))}{' '}
-              {isLoading ? <LoadingIcon /> : <RedoIcon />}
-            </Refresh>
-          </WeatherCard>
-        </WeatherCardContainer>
+    <ThemeProvider theme={theme[currentTheme]}>
+      <Container>
+        <Content>
+    
+          {/* Title */}
+          <Title theme={currentTheme}>
+            Weather
+            <img 
+              src={catcherIcon} 
+              alt="Just a decoration"
+              style={{
+                width: "50px",
+                marginLeft: "20px",
+                transform: "translateY(5px)",
+              }}
+            />
+          </Title>
+    
+          {/* Main Info */}
+          <WeatherCardContainer>
+            <WeatherCard>
+              <Location>{locationName}</Location>
+              <Description>
+                {description} {comfortability}
+              </Description>
+              <CurrentWeather>
+                <Temperature>
+                  {Math.round(temperature)} <Celsius>°C</Celsius>
+                </Temperature>
+                <WeatherIcon 
+                  currentWeatherCode={weatherCode}
+                  moment={moment || 'day'}
+                />
+              </CurrentWeather>
+              <AirFlow>
+                <AirFlowIcon />
+                {windSpeed} m/h
+              </AirFlow>
+              <Rain>
+                <RainIcon />
+                {Math.round(rainPossibility)} %
+              </Rain>
+              <Refresh onClick={fetchData} isLoading={isLoading}>
+                最後觀測時間：
+                {new Intl.DateTimeFormat('zh-TW', {
+                  hour: 'numeric',
+                  minute: 'numeric',
+                }).format(new Date(observationTime))}{' '}
+                {isLoading ? <LoadingIcon /> : <RedoIcon />}
+              </Refresh>
+            </WeatherCard>
+          </WeatherCardContainer>
 
-        {/* License */}
-        <License />
+          {/* License */}
+          <License />
 
-      </Content>
-    </Container>
+        </Content>
+      </Container>
+    </ThemeProvider>
   );
 }
 

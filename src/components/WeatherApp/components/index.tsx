@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 
 import WeatherIcon from "./WeatherIcon";
+import { ThemeType } from "../theme";
 
 const Container = styled.div`
-  background-color: #ededed;
+  background-color: ${({ theme }: { theme: any }) => theme.backgroundColor};
   height: 100vh;
   display: flex;
   align-items: center;
@@ -27,7 +28,7 @@ const Title = styled.h1`
     console.log(props);
     return props.toString();
   }};
-  color: ${props => props.theme === 'dark' ? '#dadada' : '#212121'};
+  color: ${props => props.theme === ThemeType.DARK ? '#dadada' : '#212121'};
   font-size: 50px;
 `
 const WeatherCardContainer = styled.div`
@@ -40,21 +41,21 @@ const WeatherCardContainer = styled.div`
 const WeatherCard = styled.div`
   position: relative;
   min-width: 360px;
-  box-shadow: 0 1px 3px 0 #999999;
-  background-color: #f9f9f9;
+  box-shadow: ${({ theme }: { theme: any }) => theme.boxShadow};
+  background-color: ${({ theme }: { theme: any }) => theme.foregroundColor};
   box-sizing: border-box;
   padding: 30px 15px;
 `;
 
 const Location = styled.div`
   font-size: 28px;
-  color: #212121;
+  color: ${({ theme }: { theme: any }) => theme.titleColor};
   margin-bottom: 20px;
 `;
 
 const Description = styled.div`
   font-size: 16px;
-  color: #828282;
+  color: ${({ theme }: { theme: any }) => theme.textColor};
   margin-bottom: 30px;
 `;
 
@@ -66,7 +67,7 @@ const CurrentWeather = styled.div`
 `;
 
 const Temperature = styled.div`
-  color: #757575;
+  color: ${({ theme }: { theme: any }) => theme.temperatureColor};
   font-size: 96px;
   font-weight: 300;
   display: flex;
@@ -82,7 +83,7 @@ const AirFlow = styled.div`
   align-items: center;
   font-size: 16x;
   font-weight: 300;
-  color: #828282;
+  color: ${({ theme }: { theme: any }) => theme.textColor};
   margin-bottom: 20px;
 
   svg {
@@ -97,7 +98,7 @@ const Rain = styled.div`
   align-items: center;
   font-size: 16x;
   font-weight: 300;
-  color: #828282;
+  color: ${({ theme }: { theme: any }) => theme.textColor};
 
   svg {
     width: 25px;
@@ -113,8 +114,8 @@ const Refresh = styled.div`
   font-size: 12px;
   display: inline-flex;
   align-items: flex-end;
-  color: #828282;
-  
+  color: ${(props: any) => props.theme.textColor};
+
   svg {
     margin-left: 10px;
     width: 15px;
