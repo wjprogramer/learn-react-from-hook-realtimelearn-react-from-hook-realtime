@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from '@emotion/styled';
 
 const WeatherSettingWrapper = styled.div`
@@ -99,12 +100,24 @@ interface WeatherSettingProps {
 
 const WeatherSetting = (props: WeatherSettingProps) => {
   const { setCurrentPage } = props;
+  const [locationName, setLocationName] = useState('');
+
+  const handleChange = (e: any) => {
+    console.log(e.target.value);
+
+    setLocationName(e.target.value);
+  };
 
   return (
     <WeatherSettingWrapper>
       <Title>設定</Title>
       <StyledLabel htmlFor="location">地區</StyledLabel>
-      <StyledInputList list="location-list" id="location" name="location" />
+      <StyledInputList
+        list="location-list"
+        id="location"
+        name="location"
+        onChange={handleChange}
+      />
 
       <datalist id="location-list">
         {locations.map(location => (
