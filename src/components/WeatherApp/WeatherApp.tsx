@@ -53,7 +53,9 @@ const getMoment = (locationName: any) => {
 };
 
 const WeatherApp = () => {
-  const [currentCity, setCurrentCity] = useState('臺北市');
+  const storageCity = localStorage.getItem('cityName');
+
+  const [currentCity, setCurrentCity] = useState(storageCity || '臺北市');
   const currentLocation = findLocation(currentCity) || { locationName: null, sunriseCityName: null, cityName: null };
 
   const [weatherElement, fetchData] = useWeatherApi(currentLocation);
@@ -69,6 +71,10 @@ const WeatherApp = () => {
       ? ThemeType.LIGHT : ThemeType.DARK);
   }, [moment]);
   
+  useEffect(() => {
+    localStorage.setItem('cityName', currentCity);
+  }, [currentCity]);
+
   return (
     <ThemeProvider theme={theme[currentTheme]}>
       <Container>
