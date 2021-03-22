@@ -25,7 +25,7 @@ const Counter = (props: CounterProps) => {
 
   return (<div className={styles.background}>
     <div className={styles.container}>
-      {count > 0 && <div
+      {count < 10 && <div
         className={`${styles['chevron']} ${styles["chevron-up"]}`}
         onClick={handleClick(Action.increment)}
       />}
@@ -33,7 +33,7 @@ const Counter = (props: CounterProps) => {
       <div
         className={`${styles['chevron']} ${styles["chevron-down"]}`}
         style={{
-          visibility: count >= 10 ? "hidden" : "visible",
+          visibility: count <= 0 ? "hidden" : "visible",
         }}
         onClick={handleClick(Action.decrement)}
       />
