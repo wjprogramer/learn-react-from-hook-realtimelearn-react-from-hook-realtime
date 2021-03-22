@@ -124,11 +124,7 @@ interface WeatherElement {
 }
 
 const WeatherCard = (props: WeatherCardProps) => {
-  const {
-    weatherElement,
-    moment,
-    fetchData,
-  } = props;
+  const { weatherElement, moment, fetchData, } = props;
 
   const {
     observationTime,
