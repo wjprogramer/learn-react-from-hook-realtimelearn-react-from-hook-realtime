@@ -116,7 +116,20 @@ const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 
 > 補充：`useCallback(fn, deps)` 等同於 `useMemo(() => fn, deps)`。
 
-## Day 22
+## Day 25
+
+### Custom Hook 的概念
+
+自訂 Hook（Custom Hook）的概念其實很簡單，它和你之前寫的 React Component 基本上是一樣的，都是 JavaScript 的函式，而且在 Custom Hook 中一樣可以使用 `useState`、`useEffect` 這些原本 React 就有提供的 Hooks，**只是在 React Component 中最後你會回傳的是 JSX，而在 Hook 中最後回傳的是一些資料或改變資料的方法**。此外在自訂的 Hook 中，會遵循 React Hooks 的慣例，因此會使用 `use` 開頭來為該函式命名。
+
+所以基本上你會建立 React Component 的話，就會自訂 Hook。另外，自訂的 Hook 一樣要遵守原本 React Hooks 的原則，像是 Hook 只能在 React 的 Functional Component 中使用（過去 React Component 除了函式之外，也可以用 `class` 建立）、Hook 不能放在回圈或 `if` 判斷式內的等等。
+
+
+
+
+
+
+
 
 
 
