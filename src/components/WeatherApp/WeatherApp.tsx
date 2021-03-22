@@ -54,9 +54,9 @@ const getMoment = (locationName: any) => {
 
 const WeatherApp = () => {
   const [currentCity, setCurrentCity] = useState('臺北市');
-  const currentLocation = findLocation(currentCity) || { sunriseCityName: null, cityName: null, };
+  const currentLocation = findLocation(currentCity) || { locationName: null, sunriseCityName: null, cityName: null };
 
-  const [weatherElement, fetchData] = useWeatherApi();
+  const [weatherElement, fetchData] = useWeatherApi(currentLocation);
   const [currentTheme, setCurrentTheme] = useState(ThemeType.DARK);
   const [currentPage, setCurrentPage] = useState('WeatherCard');
 

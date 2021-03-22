@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 
 import { CWB_API_AUTH_CODE } from "../../config";
+import { LocationInfo } from "./utils";
 
-const fetchCurrentWeather = () => {
+const fetchCurrentWeather = (locationName: string) => {
   return fetch(
-    `https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=${CWB_API_AUTH_CODE}&locationName=臺北`
+    `https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=${CWB_API_AUTH_CODE}&locationName=${locationName}`
   )
     .then((response) => response.json())
     .then((data) => {
@@ -30,9 +31,9 @@ const fetchCurrentWeather = () => {
     });
 };
 
-const fetchWeatherForecast = () => {
+const fetchWeatherForecast = (cityName: string) => {
   return fetch(
-    `https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=${CWB_API_AUTH_CODE}&locationName=臺北市`
+    `https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=${CWB_API_AUTH_CODE}&locationName=${cityName}`
   )
     .then((response) => response.json())
     .then((data) => {
@@ -56,7 +57,9 @@ const fetchWeatherForecast = () => {
     });
 };
 
-const useWeatherApi = () => {
+const useWeatherApi = (currentLocation: LocationInfo) => {
+  const { locationName, cityName } = currentLocation;
+
   const [weatherElement, setWeatherElement] = useState({
     observationTime: new Date(),
     locationName: '',
@@ -73,8 +76,8 @@ const useWeatherApi = () => {
   const fetchData = useCallback(() => {
     const fetchingData = async () => {
       const [currentWeather, weatherForecast] = await Promise.all([
-        fetchCurrentWeather(),
-        fetchWeatherForecast(),
+        fetchCurrentWeather(locationName || ""),
+        fetchWeatherForecast(cityName || ""),
       ]);
 
       setWeatherElement({
@@ -90,7 +93,7 @@ const useWeatherApi = () => {
     }));
 
     fetchingData();
-  }, []);
+  }, [ locationName, cityName ]);
 
   useEffect(() => {
     fetchData();

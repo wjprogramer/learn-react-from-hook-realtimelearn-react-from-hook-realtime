@@ -3,6 +3,12 @@
  * locationName 指的是觀測站所在地區，可以對應到「局屬氣象站」的地區名稱
  * sunriseCityName 則是對應到「日落日出時間」的地區名稱
  */
+ export interface LocationInfo {
+  locationName: string | null;
+  cityName: string | null;
+  sunriseCityName: string | null;
+}
+
 export const availableLocations = [
   {
     cityName: '宜蘭縣',

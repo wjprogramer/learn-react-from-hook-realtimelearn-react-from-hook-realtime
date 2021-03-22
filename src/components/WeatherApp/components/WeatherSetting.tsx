@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import styled from "@emotion/styled";
 import { availableLocations } from "../utils";
 
@@ -97,7 +97,7 @@ interface WeatherSettingProps {
 const locations = availableLocations.map((location) => location.cityName);
 
 const WeatherSetting = (props: WeatherSettingProps) => {
-  const { cityName, setCurrentCity, setCurrentPage } = props;
+  const { setCurrentCity, setCurrentPage } = props;
   const inputLocationRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: any) => {
