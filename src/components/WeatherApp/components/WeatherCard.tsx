@@ -115,6 +115,7 @@ const Cog = styled(CogIcon)`
 `;
 
 interface WeatherCardProps {
+  cityName: string | null,
   weatherElement: WeatherElement,
   moment: "day" | "night" | null,
   fetchData: () => void,
@@ -135,11 +136,10 @@ interface WeatherElement {
 }
 
 const WeatherCard = (props: WeatherCardProps) => {
-  const { weatherElement, moment, fetchData, setCurrentPage, } = props;
+  const { weatherElement, moment, fetchData, setCurrentPage, cityName, } = props;
 
   const {
     observationTime,
-    locationName,
     temperature,
     windSpeed,
     description,
@@ -152,7 +152,7 @@ const WeatherCard = (props: WeatherCardProps) => {
   return (
     <WeatherCardWrapper>
       <Cog onClick={() => setCurrentPage("WeatherSetting")} />
-      <Location>{locationName}</Location>
+      <Location>{cityName}</Location>
       <Description>
         {description} {comfortability}
       </Description>
