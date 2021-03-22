@@ -15,15 +15,15 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          從 Hooks 開始，讓網頁 React 起來
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://github.com/wjprogramer/learn-react-from-hook-realtimelearn-react-from-hook-realtime"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Github
         </a>
       </header>
 

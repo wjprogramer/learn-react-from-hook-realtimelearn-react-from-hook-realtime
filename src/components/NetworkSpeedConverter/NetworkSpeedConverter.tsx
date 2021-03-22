@@ -2,7 +2,7 @@ import React, {
   useState,
 } from "react";
 
-import Desinger from "./components/Desinger";
+import Desinger from "../Designer";
 import styles from './style.module.scss';
 
 const UnitControl = () => {
@@ -106,7 +106,11 @@ const NetworkSpeedConverter = () => {
       </div>
       <CardFooter inputValue={inputValue} />
     </div>
-    <Desinger />
+    <Desinger 
+      name="Rizky" 
+      link="https://dribbble.com/Rizkyedriansyah"
+      workLink="https://dribbble.com/shots/4241423-Exchanger-landing-page"
+    />
   </div>
 }
 

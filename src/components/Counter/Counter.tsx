@@ -2,7 +2,7 @@ import React, {
   useState, MouseEventHandler 
 } from "react";
 
-import Desinger from "./components/Desinger";
+import Desinger from "../Designer";
 import styles from './style.module.scss';
 
 enum Action {
@@ -39,7 +39,11 @@ const Counter = (props: CounterProps) => {
       />
     </div>
 
-    <Desinger />
+    <Desinger 
+      name="Oleg Frolov" 
+      link="https://dribbble.com/Volorf"
+      workLink="https://dribbble.com/shots/5539678-Stepper-VI"
+    />
   </div>);
 }
 
