@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 import { ThemeType } from "../theme";
 import WeatherCard from "./WeatherCard";
+import WeatherSetting from "./WeatherSetting";
 
 const Container = styled.div`
   background-color: ${({ theme }: { theme: any }) => theme.backgroundColor};
@@ -91,11 +92,12 @@ const Table = styled.table`
 `;
 
 export {
+  WeatherCard,
+  WeatherSetting,
   Container,
   Content,
   Title,
   WeatherCardContainer,
-  WeatherCard,
   License,
   Link,
   Table,

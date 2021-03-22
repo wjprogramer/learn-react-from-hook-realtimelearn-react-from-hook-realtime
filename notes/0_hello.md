@@ -124,12 +124,10 @@ const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 
 所以基本上你會建立 React Component 的話，就會自訂 Hook。另外，自訂的 Hook 一樣要遵守原本 React Hooks 的原則，像是 Hook 只能在 React 的 Functional Component 中使用（過去 React Component 除了函式之外，也可以用 `class` 建立）、Hook 不能放在回圈或 `if` 判斷式內的等等。
 
+## Day 26
 
-
-
-
-
-
+1. 在 HTML 的 `<label>` 中，使用的是 `for` 屬性，而在 React JSX 中，為了避免和 JavaScript 的 `for` 關鍵字衝突，因此會使用 `htmlFor`，例如，`<label htmlFor="location">`
+2. 在 Input 使用的是 HTML 的 [datalist 元素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist)，這個元素和傳統的 `<select>` 很類似，但不一樣的地方在於，使用者不只可以從下拉選單去做選擇，還可以在這個 `<input>` 裡面輸入文字進行搜尋，對使用者的體驗較友善，有興趣的話可以再參考 MDN 上關於 [datalist](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist) 的說明：
 
 
 
