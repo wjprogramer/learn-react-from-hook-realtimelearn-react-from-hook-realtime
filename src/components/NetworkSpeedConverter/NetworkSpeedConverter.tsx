@@ -2,6 +2,7 @@ import React, {
   useState,
 } from "react";
 
+import Desinger from "./components/Desinger";
 import styles from './style.module.scss';
 
 const UnitControl = () => {
@@ -105,6 +106,7 @@ const NetworkSpeedConverter = () => {
       </div>
       <CardFooter inputValue={inputValue} />
     </div>
+    <Desinger />
   </div>
 }
 

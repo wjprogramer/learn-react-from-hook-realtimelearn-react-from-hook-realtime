@@ -2,6 +2,7 @@ import React, {
   useState, MouseEventHandler 
 } from "react";
 
+import Desinger from "./components/Desinger";
 import styles from './style.module.scss';
 
 enum Action {
@@ -37,6 +38,8 @@ const Counter = (props: CounterProps) => {
         onClick={handleClick(Action.decrement)}
       />
     </div>
+
+    <Desinger />
   </div>);
 }
 
