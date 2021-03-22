@@ -6,6 +6,7 @@ import { ReactComponent as AirFlowIcon } from '../../../assets/image/weather-app
 import { ReactComponent as RainIcon } from '../../../assets/image/weather-app-images/rain.svg';
 import { ReactComponent as RedoIcon } from '../../../assets/image/weather-app-images/refresh.svg';
 import { ReactComponent as LoadingIcon } from '../../../assets/image/weather-app-images/loading.svg';
+import { ReactComponent as CogIcon } from '../../../assets/image/weather-app-images/cog.svg';
 
 const WeatherCardWrapper = styled.div`
   position: relative;
@@ -104,10 +105,20 @@ const Refresh = styled.div`
   }
 `;
 
+const Cog = styled(CogIcon)`
+  position: absolute;
+  top: 30px;
+  right: 15px;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+`;
+
 interface WeatherCardProps {
   weatherElement: WeatherElement,
   moment: "day" | "night" | null,
   fetchData: () => void,
+  setCurrentPage: React.Dispatch<React.SetStateAction<string>>,
 }
 
 interface WeatherElement {
@@ -124,7 +135,7 @@ interface WeatherElement {
 }
 
 const WeatherCard = (props: WeatherCardProps) => {
-  const { weatherElement, moment, fetchData, } = props;
+  const { weatherElement, moment, fetchData, setCurrentPage, } = props;
 
   const {
     observationTime,
@@ -140,6 +151,7 @@ const WeatherCard = (props: WeatherCardProps) => {
 
   return (
     <WeatherCardWrapper>
+      <Cog onClick={() => setCurrentPage("WeatherSetting")} />
       <Location>{locationName}</Location>
       <Description>
         {description} {comfortability}

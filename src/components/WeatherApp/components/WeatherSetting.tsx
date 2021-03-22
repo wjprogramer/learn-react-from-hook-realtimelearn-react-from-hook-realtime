@@ -93,8 +93,13 @@ const locations = [
   '高雄市', '金門縣', '屏東縣', '基隆市', '澎湖縣',
   '彰化縣', '連江縣',
 ];
+interface WeatherSettingProps {
+  setCurrentPage: React.Dispatch<React.SetStateAction<string>>,
+}
 
-const WeatherSetting = () => {
+const WeatherSetting = (props: WeatherSettingProps) => {
+  const { setCurrentPage } = props;
+
   return (
     <WeatherSettingWrapper>
       <Title>設定</Title>
@@ -108,7 +113,7 @@ const WeatherSetting = () => {
       </datalist>
 
       <ButtonGroup>
-        <Back>返回</Back>
+        <Back onClick={() => setCurrentPage('WeatherCard')}>返回</Back>
         <Save>儲存</Save>
       </ButtonGroup>
     </WeatherSettingWrapper>

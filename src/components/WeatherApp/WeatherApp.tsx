@@ -8,6 +8,7 @@ import {
   Title,
   WeatherCardContainer,
   WeatherCard,
+  WeatherSetting,
   License,
 } from "./components";
 import theme, { ThemeType } from "./theme";
@@ -53,6 +54,8 @@ const getMoment = (locationName: any) => {
 const WeatherApp = () => {
   const [weatherElement, fetchData] = useWeatherApi();
   const [currentTheme, setCurrentTheme] = useState(ThemeType.DARK);
+  const [currentPage, setCurrentPage] = useState('WeatherCard');
+
   const { locationName } = weatherElement;
 
   const moment = useMemo(() => getMoment(locationName), [ locationName ]);
@@ -83,11 +86,17 @@ const WeatherApp = () => {
     
           {/* Main Info */}
           <WeatherCardContainer>
-            <WeatherCard 
-              weatherElement={weatherElement}
-              moment={moment}
-              fetchData={fetchData}
-            />
+            {currentPage === 'WeatherCard' && (
+              <WeatherCard
+                weatherElement={weatherElement}
+                moment={moment}
+                fetchData={fetchData}
+                setCurrentPage={setCurrentPage}
+              />
+            )}
+            {currentPage === 'WeatherSetting' && (
+              <WeatherSetting setCurrentPage={setCurrentPage} />
+            )}
           </WeatherCardContainer>
 
           {/* License */}
