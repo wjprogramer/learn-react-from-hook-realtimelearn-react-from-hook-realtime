@@ -100,12 +100,24 @@ interface WeatherSettingProps {
 
 const WeatherSetting = (props: WeatherSettingProps) => {
   const { setCurrentPage } = props;
-  const [locationName, setLocationName] = useState('');
+  const [locationName, setLocationName] = useState('臺北市');
 
   const handleChange = (e: any) => {
     console.log(e.target.value);
 
     setLocationName(e.target.value);
+  };
+
+  const handleSave = () => {
+    if (locations.includes(locationName)) {
+      // TODO: 儲存地區資訊...
+      console.log(`儲存的地區資訊為：${locationName}`);
+
+      setCurrentPage('WeatherCard');
+    } else {
+      alert(`儲存失敗：您輸入的 ${locationName} 並非有效的地區`);
+      return;
+    }
   };
 
   return (
@@ -117,6 +129,7 @@ const WeatherSetting = (props: WeatherSettingProps) => {
         id="location"
         name="location"
         onChange={handleChange}
+        value={locationName}
       />
 
       <datalist id="location-list">
@@ -127,7 +140,7 @@ const WeatherSetting = (props: WeatherSettingProps) => {
 
       <ButtonGroup>
         <Back onClick={() => setCurrentPage('WeatherCard')}>返回</Back>
-        <Save>儲存</Save>
+        <Save onClick={handleSave}>儲存</Save>
       </ButtonGroup>
     </WeatherSettingWrapper>
   );
