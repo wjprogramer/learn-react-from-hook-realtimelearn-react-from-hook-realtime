@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styled from '@emotion/styled';
 
 const WeatherSettingWrapper = styled.div`
@@ -101,9 +101,11 @@ interface WeatherSettingProps {
 const WeatherSetting = (props: WeatherSettingProps) => {
   const { setCurrentPage } = props;
   const [locationName, setLocationName] = useState('臺北市');
+  const inputLocationRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: any) => {
-    console.log(e.target.value);
+    const locationName = inputLocationRef.current?.value;
+    console.log(locationName);
 
     setLocationName(e.target.value);
   };
@@ -129,7 +131,8 @@ const WeatherSetting = (props: WeatherSettingProps) => {
         id="location"
         name="location"
         onChange={handleChange}
-        value={locationName}
+        ref={inputLocationRef}
+        defaultValue="臺南市"
       />
 
       <datalist id="location-list">
